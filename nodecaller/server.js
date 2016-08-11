@@ -4,7 +4,7 @@ var morgan = require('morgan');
 var clicks = require('./datahandler');
 var app = express();
 
- var port = process.argv[2] || 3000;
+ var port = process.env.PORT || 3000;
 
 app.use(morgan('dev')); /* 'default','short','tiny','dev' */
 app.use(bodyParser.urlencoded({
