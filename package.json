@@ -1,0 +1,43 @@
+{
+  "name": "countapp",
+  "version": "1.0.0",
+  "description": "a count app",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "flux": "^2.1.1",
+    "json2csv": "^3.6.2",
+    "morgan": "^1.7.0",
+    "react": "^15.3.0",
+    "react-dom": "^15.3.0",
+    "react-downloadbutton": "^1.0.0",
+    "react-http-request": "^1.0.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.11.4",
+    "babel-preset-react": "^6.11.1",
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.0",
+    "watchify": "^3.7.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel js -d lib --presets react",
+    "start": "watchify js/app.js -o lib/app.js"
+  },
+  "author": "Eden Toledano",
+  "license": "ISC",
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "presets": [
+            "react"
+          ]
+        }
+      ]
+    ]
+  }
+}
