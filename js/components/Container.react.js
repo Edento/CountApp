@@ -12,11 +12,12 @@ var Container = React.createClass({
         return (
         <div>
             <Header title="Counter App"></Header>
-            <h1>Clicks: { this.state.count }</h1>
+            <h2>Clicks: { this.state.count }</h2>
             <div>
                 <Counter count= {this.state.count} change={this.onCountChange}></Counter>
-                <Resetbtn count = {this.state.count} text="Reset clicks" reset={this.onCountChange}></Resetbtn>
                 <Button text="Download CSV"></Button>
+                <Resetbtn count = {this.state.count} text="Reset clicks" reset={this.onCountChange}></Resetbtn>
+                
             </div>
         </div>
         
