@@ -6,24 +6,48 @@ var bodyParser = require('body-parser');
 var Server = mongo.Server
     , Db = mongo.Db
     , BSON = mongo.BSONPure;
-var server = new Server('localhost', 27017, {
-    auto_reconnect: true
+var url = 'mongodb://test:test@ds153845.mlab.com:53845/clicksdb'; // or 'localhost'
+var db;
+
+mongo.MongoClient.connect(url, function (err, database) {
+  if (err) {
+    console.log(err);
+    process.exit(1);
+  }
+
+  // Save database object from the callback for reuse.
+  db = database;
+  console.log("Database connection ready");
+
+  // Initialize the app.
+//   var server = app.listen(process.env.PORT || 8080, function () {
+//     var port = server.address().port;
+//     console.log("App now running on port", port);
+//   });
 });
-db = new Db('clicksdb', server);
-// open the database
-db.open(function (err, db) {
-    if (!err) {
-        console.log("Connected to 'clicksdb' database");
-        db.collection('clicks', {
-            strict: true
-        }, function (err, collection) { 
-            if (err) {
-                console.log("The 'clicks' collection doesn't exist. Creating it with sample data...");
-                populateDB(sampleData); // remove later
-            }
-        });
-    }
-});
+
+
+
+
+// *******
+// var server = new Server(url, {
+//     auto_reconnect: true
+// });
+// db = new Db('clicksdb', server);
+// // open the database
+// db.open(function (err, db) {
+//     if (!err) {
+//         console.log("Connected to 'clicksdb' database");
+//         db.collection('clicks', {
+//             strict: true
+//         }, function (err, collection) { 
+//             if (err) {
+//                 console.log("The 'clicks' collection doesn't exist. Creating it with sample data...");
+//                 populateDB(sampleData); // remove later
+//             }
+//         });
+//     }
+// });
 var getCount = function (req, res) {
     db.collection('clicks', function (err, collection) {
         collection.count({}, function(err, counter){
@@ -154,4 +178,4 @@ module.exports = {
     , download: download
     , populateDB: populateDB
     , resetCollection: resetCollection
-}
+};
