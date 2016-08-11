@@ -25,7 +25,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel js -d lib --presets react",
     "watch": "watchify js/app.js -o lib/app.js",
-    "start": "nodemon nodecaller/server.js"
+    "start": "node nodecaller/server.js"
   },
   "author": "Eden Toledano",
   "license": "ISC",
