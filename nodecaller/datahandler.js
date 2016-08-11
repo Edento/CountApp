@@ -3,51 +3,26 @@ var json2csv = require('json2csv');
 var fs = require('fs');
 
 var bodyParser = require('body-parser');
-var Server = mongo.Server
-    , Db = mongo.Db
-    , BSON = mongo.BSONPure;
+var Server = mongo.Server, Db = mongo.Db, BSON = mongo.BSONPure;
 var url = 'mongodb://test:test@ds153845.mlab.com:53845/clicksdb'; // or 'localhost'
 var db;
 
-mongo.MongoClient.connect(url, function (err, database) {
-  if (err) {
-    console.log(err);
-    process.exit(1);
-  }
+var connectDatabase = function() {
+    // connecting to the database...
+    mongo.MongoClient.connect(url, function (err, database) {
+    
+        if (err) {
+            console.log(err);
+            process.exit(1);
+        }
 
-  // Save database object from the callback for reuse.
-  db = database;
-  console.log("Database connection ready");
+        // Save database object from the callback for reuse.
+        db = database;
+        console.log("Database connection ready");
 
-  // Initialize the app.
-//   var server = app.listen(process.env.PORT || 8080, function () {
-//     var port = server.address().port;
-//     console.log("App now running on port", port);
-//   });
-});
+    });
+};
 
-
-
-
-// *******
-// var server = new Server(url, {
-//     auto_reconnect: true
-// });
-// db = new Db('clicksdb', server);
-// // open the database
-// db.open(function (err, db) {
-//     if (!err) {
-//         console.log("Connected to 'clicksdb' database");
-//         db.collection('clicks', {
-//             strict: true
-//         }, function (err, collection) { 
-//             if (err) {
-//                 console.log("The 'clicks' collection doesn't exist. Creating it with sample data...");
-//                 populateDB(sampleData); // remove later
-//             }
-//         });
-//     }
-// });
 var getCount = function (req, res) {
     db.collection('clicks', function (err, collection) {
         collection.count({}, function(err, counter){
@@ -55,12 +30,10 @@ var getCount = function (req, res) {
                 console.log(err);
             }
             res.json(counter);
-        })
-//        collection.find().toArray(function (err, items) {
-//            res.json(items.length);
-//        });
+        });
     });
 };
+
 var findAll = function (req, res) {
     db.collection('clicks', function (err, collection) {
         collection.find().toArray(function (err, items) {
@@ -178,4 +151,5 @@ module.exports = {
     , download: download
     , populateDB: populateDB
     , resetCollection: resetCollection
+    , connectDatabase: connectDatabase
 };

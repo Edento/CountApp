@@ -42,8 +42,9 @@ var Resetbtn = React.createClass({
     render: function() {
         
         var text = this.props.text;
+
         return (
-            <button type="button" className="btn btn-primary" onClick={this.resetCollection}>
+            <button type="button" className="btn btn-danger btn-lg btn-block" onClick={this.resetCollection}>
                 { text }
             </button>
             

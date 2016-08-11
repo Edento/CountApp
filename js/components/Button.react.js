@@ -35,7 +35,7 @@ var Button = React.createClass({
         
         var text = this.props.text;
         return (
-            <button type="button" className="btn btn-primary" onClick={this.download}>
+            <button type="button" className="btn btn-info btn-lg btn-block"  onClick={this.download}>
                 { text }
             </button>
             

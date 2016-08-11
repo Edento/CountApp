@@ -55,7 +55,7 @@ var Counter = React.createClass({
     
     render: function () {
           return (
-            <button className="btn btn-primary" onClick={this.addClick}>
+            <button type="button" className="btn btn-primary btn-lg btn-block" onClick={this.addClick}>
               Click me!
             </button>
           );

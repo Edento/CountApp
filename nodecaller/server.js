@@ -1,7 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
-var clicks = require('./datahandler');
+var dbHandler = require('./datahandler');
 var app = express();
 
  var port = process.env.PORT || 3000;
@@ -19,13 +19,13 @@ app.get('/', function (req, res) {
     res.sendFile(__dirname + '/../index.html');
 });
 
-app.get('/api/all', clicks.findAll);
-app.get('/api/count', clicks.getCount);
-app.get('/api/download', clicks.download);
+// app.get('/api/all', dbHandler.findAll); // not in use
+app.get('/api/count', dbHandler.getCount);
+app.get('/api/download', dbHandler.download);
+app.post('/api/add', dbHandler.addClick);
+app.delete('/api/reset', dbHandler.resetCollection);
 
-app.post('/api/add', clicks.addClick);
-//app.put('/wines/:id', clicks.updateWine);
-app.delete('/api/reset', clicks.resetCollection);
+dbHandler.connectDatabase();
 
 app.listen(port);
 console.log('Listening on port '+ port);
